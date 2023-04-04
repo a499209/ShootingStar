@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://cunkhj7634arl"]
+
+[ext_resource type="Script" path="res://Node2D.gd" id="1_b0hx2"]
+[ext_resource type="Texture2D" uid="uid://caepeiyxmpf24" path="res://123.png" id="2_xsg3g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_63d55"]
+radius = 100.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8i7ub"]
+blend_mode = 3
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_b0hx2")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(367, 520)
+shape = SubResource("CircleShape2D_63d55")
+
+[node name="Aim" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_8i7ub")
+position = Vector2(196, 128)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_xsg3g")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
