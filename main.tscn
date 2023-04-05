@@ -1,27 +1,107 @@
-[gd_scene load_steps=5 format=3 uid="uid://cunkhj7634arl"]
+[gd_scene load_steps=11 format=3 uid="uid://cunkhj7634arl"]
 
 [ext_resource type="Script" path="res://Node2D.gd" id="1_b0hx2"]
-[ext_resource type="Texture2D" uid="uid://caepeiyxmpf24" path="res://123.png" id="2_xsg3g"]
+[ext_resource type="Texture2D" uid="uid://d3artqpxdmht1" path="res://уу3.png" id="2_mdbtd"]
+[ext_resource type="Texture2D" uid="uid://b6ehx0xbdp2l4" path="res://pngegg.png" id="3_nueu7"]
+[ext_resource type="Texture2D" uid="uid://c0rp8pa318tuv" path="res://уу2.png" id="3_tp8bs"]
+[ext_resource type="Texture2D" uid="uid://bxoyseu7p4qdr" path="res://уу1.png" id="4_is2kt"]
+[ext_resource type="Texture2D" uid="uid://dleid40m253io" path="res://box.png" id="6_oqjif"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ax0eb"]
+size = Vector2(230, 230.001)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_63d55"]
 radius = 100.0
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8i7ub"]
-blend_mode = 3
+[sub_resource type="SpriteFrames" id="SpriteFrames_u5u01"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_is2kt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_tp8bs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mdbtd")
+}],
+"loop": false,
+"name": &"close",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mdbtd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_tp8bs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_is2kt")
+}],
+"loop": false,
+"name": &"open",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_68ykl"]
+radius = 16.1245
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_b0hx2")
 
+[node name="box" type="Sprite2D" parent="."]
+position = Vector2(64, 466)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_oqjif")
+metadata/_edit_group_ = true
+
+[node name="BoxArea" type="Area2D" parent="box"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="box/BoxArea"]
+position = Vector2(-9.99994, 0.000488281)
+scale = Vector2(0.999999, 0.999999)
+shape = SubResource("RectangleShape2D_ax0eb")
+
 [node name="Area2D" type="Area2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Area2D"]
+offset_left = 294.0
+offset_top = 444.0
+offset_right = 445.0
+offset_bottom = 592.0
+mouse_filter = 1
+color = Color(1, 0.45098, 1, 0.45098)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(367, 520)
 shape = SubResource("CircleShape2D_63d55")
 
-[node name="Aim" type="Sprite2D" parent="."]
-material = SubResource("CanvasItemMaterial_8i7ub")
-position = Vector2(196, 128)
-scale = Vector2(0.05, 0.05)
-texture = ExtResource("2_xsg3g")
+[node name="Aim" type="AnimatedSprite2D" parent="."]
+position = Vector2(115, 598)
+sprite_frames = SubResource("SpriteFrames_u5u01")
+animation = &"close"
+
+[node name="Area2D" type="Area2D" parent="Aim"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Aim/Area2D"]
+position = Vector2(-1, 40)
+shape = SubResource("CircleShape2D_68ykl")
+
+[node name="Chain" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 143.0
+offset_top = 10.0
+offset_right = 3990.0
+offset_bottom = 403.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("3_nueu7")
+expand_mode = 2
+stretch_mode = 1
 
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
